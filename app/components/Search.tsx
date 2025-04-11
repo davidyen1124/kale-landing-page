@@ -16,23 +16,65 @@ export default function Search({ query, setQuery, handleSearch }: SearchProps) {
   const [imageType, setImageType] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (file: File) => {
-    if (file && file.type.startsWith("image/")) {
-      setImageType(file.type);
+  const resizeImage = (
+    file: File,
+    maxWidth = 800,
+    maxHeight = 800
+  ): Promise<string> => {
+    return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const base64 = e.target?.result as string;
-        setImage(base64);
+        const img = new Image();
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round(height * (maxWidth / width));
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round(width * (maxHeight / height));
+              height = maxHeight;
+            }
+          }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          ctx?.drawImage(img, 0, 0, width, height);
+
+          // Get compressed image as base64
+          const resizedBase64 = canvas.toDataURL(file.type, 0.7); // 0.7 is the quality (0-1)
+          resolve(resizedBase64);
+        };
+        img.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleFileChange = async (file: File) => {
+    if (file && file.type.startsWith("image/")) {
+      setImageType(file.type);
+
+      try {
+        const resizedImageBase64 = await resizeImage(file);
+        setImage(resizedImageBase64);
         setQuery("");
 
-        // Automatically trigger search when image is uploaded
-        const base64Data = base64.split(",")[1];
+        const base64Data = resizedImageBase64.split(",")[1];
         const dummyEvent = new Event("submit", {
           cancelable: true,
         }) as unknown as FormEvent;
         handleSearch(dummyEvent, base64Data, file.type);
-      };
-      reader.readAsDataURL(file);
+      } catch (error) {
+        console.error("Error resizing image:", error);
+      }
     }
   };
 
