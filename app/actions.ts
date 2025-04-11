@@ -243,8 +243,8 @@ export async function searchFoodProducts(
         },
       ],
       reasoning: {},
-      temperature: 0.5,
-      max_output_tokens: 10000,
+      temperature: 0.7,
+      max_output_tokens: 8192,
       top_p: 1,
     });
 

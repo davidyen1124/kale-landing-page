@@ -1,5 +1,5 @@
 import { Search as SearchIcon, Upload } from "lucide-react";
-import { FormEvent, useState, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 interface SearchProps {
   query: string;
@@ -10,6 +10,8 @@ interface SearchProps {
     imageType?: string
   ) => void;
   loading?: boolean;
+  image: string | null;
+  setImage: (image: string | null) => void;
 }
 
 export default function Search({
@@ -17,8 +19,9 @@ export default function Search({
   setQuery,
   handleSearch,
   loading = false,
+  image,
+  setImage,
 }: SearchProps) {
-  const [image, setImage] = useState<string | null>(null);
   const [imageType, setImageType] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -54,8 +57,7 @@ export default function Search({
           const ctx = canvas.getContext("2d");
           ctx?.drawImage(img, 0, 0, width, height);
 
-          // Get compressed image as base64
-          const resizedBase64 = canvas.toDataURL(file.type, 0.7); // 0.7 is the quality (0-1)
+          const resizedBase64 = canvas.toDataURL(file.type, 0.7);
           resolve(resizedBase64);
         };
         img.src = e.target?.result as string;

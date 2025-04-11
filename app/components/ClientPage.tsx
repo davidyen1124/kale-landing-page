@@ -11,13 +11,13 @@ import { doritosExampleData } from "@/app/example-data";
 export default function ClientPage() {
   const { data: session } = useSession();
   const [query, setQuery] = useState("");
+  const [image, setImage] = useState<string | null>(null);
   const [results, setResults] = useState<OpenAIResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   const searchContainerRef = useRef<HTMLDivElement>(null);
-  const isLoggedIn = !!session?.user;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -60,6 +60,8 @@ export default function ClientPage() {
           imageType
         );
         setResults(data);
+        setQuery("");
+        setImage(null);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError(
@@ -73,6 +75,8 @@ export default function ClientPage() {
     } else {
       setTimeout(() => {
         setResults(doritosExampleData);
+        setQuery("");
+        setImage(null);
         setLoading(false);
       }, 1000);
     }
@@ -86,6 +90,8 @@ export default function ClientPage() {
           setQuery={setQuery}
           handleSearch={handleSearch}
           loading={loading}
+          image={image}
+          setImage={setImage}
         />
         {error && (
           <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg">
