@@ -9,9 +9,15 @@ interface SearchProps {
     imageBase64?: string,
     imageType?: string
   ) => void;
+  loading?: boolean;
 }
 
-export default function Search({ query, setQuery, handleSearch }: SearchProps) {
+export default function Search({
+  query,
+  setQuery,
+  handleSearch,
+  loading = false,
+}: SearchProps) {
   const [image, setImage] = useState<string | null>(null);
   const [imageType, setImageType] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -96,7 +102,11 @@ export default function Search({ query, setQuery, handleSearch }: SearchProps) {
     <div className="relative w-full">
       <div className="relative">
         <form onSubmit={handleSubmit} className="relative">
-          <div className="w-full px-6 py-4 rounded-full border border-gray-200 focus-within:ring-2 focus-within:ring-green-500 focus-within:border-transparent text-gray-700 flex items-center">
+          <div
+            className={`w-full px-6 py-4 rounded-full border ${
+              loading ? "bg-gray-100" : "bg-white"
+            } border-gray-200 focus-within:ring-2 focus-within:ring-green-500 focus-within:border-transparent text-gray-700 flex items-center transition-colors`}
+          >
             {image && (
               <div className="mr-2">
                 <img
@@ -111,7 +121,10 @@ export default function Search({ query, setQuery, handleSearch }: SearchProps) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Try Doritos, Nutella, or Gatorade"
-              className="w-full focus:outline-none"
+              className={`w-full focus:outline-none ${
+                loading ? "bg-gray-100" : "bg-white"
+              } transition-colors`}
+              disabled={loading}
             />
           </div>
 
@@ -119,14 +132,20 @@ export default function Search({ query, setQuery, handleSearch }: SearchProps) {
             <button
               type="button"
               onClick={handleUploadClick}
-              className="bg-blue-100 p-2 mr-2 rounded-full text-blue-500 hover:bg-blue-200 transition-colors"
+              className={`bg-blue-100 p-2 mr-2 rounded-full text-blue-500 hover:bg-blue-200 transition-colors ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
             >
               <Upload className="h-5 w-5" />
             </button>
 
             <button
               type="submit"
-              className="bg-green-100 p-2 rounded-full text-green-500 hover:bg-green-200 transition-colors"
+              className={`bg-green-100 p-2 rounded-full text-green-500 hover:bg-green-200 transition-colors ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
             >
               <SearchIcon className="h-5 w-5" />
             </button>
@@ -137,6 +156,7 @@ export default function Search({ query, setQuery, handleSearch }: SearchProps) {
             type="file"
             accept="image/*"
             className="hidden"
+            disabled={loading}
             onChange={(e) => {
               if (e.target.files && e.target.files[0]) {
                 handleFileChange(e.target.files[0]);

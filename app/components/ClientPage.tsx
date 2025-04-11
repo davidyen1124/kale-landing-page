@@ -50,6 +50,7 @@ export default function ClientPage() {
     setShowDropdown(true);
     setSelectedProductIndex(0);
     setError(null);
+    setResults(null);
 
     if (session?.user) {
       try {
@@ -80,7 +81,12 @@ export default function ClientPage() {
   return (
     <div className="container mx-auto px-4">
       <div className="relative max-w-3xl mx-auto" ref={searchContainerRef}>
-        <Search query={query} setQuery={setQuery} handleSearch={handleSearch} />
+        <Search
+          query={query}
+          setQuery={setQuery}
+          handleSearch={handleSearch}
+          loading={loading}
+        />
         {error && (
           <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg">
             {error}
