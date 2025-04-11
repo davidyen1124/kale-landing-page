@@ -69,7 +69,7 @@ export async function searchFoodProducts(
 
     const response = await openai.responses.create({
       model: "gpt-4o",
-      input: inputContent,
+      input: inputContent as any,
       text: {
         format: {
           type: "json_schema",
@@ -82,7 +82,7 @@ export async function searchFoodProducts(
               products: {
                 type: "array",
                 description:
-                  "List of food items that match the query. Include both packaged products AND generic food items like fruits, vegetables, etc. Always return at least one item for any valid food query.",
+                  "List of food items that match the query. Include both packaged products AND generic food items like fruits, vegetables, etc. Always return at most 3 items for any valid food query.",
                 items: {
                   type: "object",
                   additionalProperties: false,
@@ -244,7 +244,7 @@ export async function searchFoodProducts(
       ],
       reasoning: {},
       temperature: 0.5,
-      max_output_tokens: 2048,
+      max_output_tokens: 10000,
       top_p: 1,
     });
 
