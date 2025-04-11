@@ -24,7 +24,8 @@ export default function ClientPage() {
       if (
         searchContainerRef.current &&
         !searchContainerRef.current.contains(event.target as Node) &&
-        showDropdown
+        showDropdown &&
+        !loading
       ) {
         setShowDropdown(false);
       }
@@ -34,7 +35,7 @@ export default function ClientPage() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showDropdown]);
+  }, [showDropdown, loading]);
 
   const handleSearch = async (
     e: FormEvent,
