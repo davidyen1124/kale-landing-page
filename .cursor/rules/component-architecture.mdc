@@ -1,0 +1,58 @@
+---
+description: Structure and patterns for React components in Kale
+globs: 
+alwaysApply: false
+---
+# Component Architecture
+
+## Component Organization
+
+Components in Kale are organized in a domain-driven structure:
+- `app/components/` - Root component directory
+- `app/components/product/` - Product-related components
+- `app/components/home/` - Home page components
+- `app/components/search/` - Search functionality components
+- `app/components/auth/` - Authentication components
+- `app/components/layout/` - Layout components
+- `app/components/ui/` - Reusable UI components
+
+## Component Patterns
+
+Components follow these patterns:
+- React components with TypeScript
+- Tailwind CSS for styling
+- Component exports are organized through index files
+
+## Core Components
+
+### Navigation
+- [app/components/Navbar.tsx](mdc:app/components/Navbar.tsx) - Server component for navigation
+- [app/components/ClientNavbar.tsx](mdc:app/components/ClientNavbar.tsx) - Client component for navigation
+
+### Product Components
+- [app/components/product/ProductInfo.tsx](mdc:app/components/product/ProductInfo.tsx) - Main container component that displays product details, ingredients, allergens, nutrition facts, dietary information, health benefits, and AI insights
+- [app/components/product/ProductHeader.tsx](mdc:app/components/product/ProductHeader.tsx) - Displays product name, brand, and nutrition grade
+- [app/components/product/NutritionGrade.tsx](mdc:app/components/product/NutritionGrade.tsx) - Shows the nutrition grade in a visual format
+- [app/components/product/IngredientsList.tsx](mdc:app/components/product/IngredientsList.tsx) - Renders product ingredients
+- [app/components/product/AllergensList.tsx](mdc:app/components/product/AllergensList.tsx) - Shows allergen warnings
+- [app/components/product/NutritionFacts.tsx](mdc:app/components/product/NutritionFacts.tsx) - Displays nutrition information in a table format
+
+Components are exported via [app/components/product/index.ts](mdc:app/components/product/index.ts) for easy importing:
+
+```tsx
+// Example usage
+import { ProductInfo, NutritionFacts } from "@/app/components/product";
+
+// Then use in your component
+<ProductInfo product={productData} searchPreview={searchResults} />
+```
+
+### Search Components
+- [app/components/Search.tsx](mdc:app/components/Search.tsx) - Search input component
+- [app/components/SearchResults.tsx](mdc:app/components/SearchResults.tsx) - Search results display
+
+### Authentication Components
+- [app/components/AuthProvider.tsx](mdc:app/components/AuthProvider.tsx) - Auth context provider
+- [app/components/LoginButton.tsx](mdc:app/components/LoginButton.tsx) - Button to initiate login
+- [app/components/LogoutButton.tsx](mdc:app/components/LogoutButton.tsx) - Button to log out
+- [app/components/ClientLoginForm.tsx](mdc:app/components/ClientLoginForm.tsx) - Login form component

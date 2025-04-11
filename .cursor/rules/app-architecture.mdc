@@ -1,0 +1,37 @@
+---
+description: Structure and patterns for React components in Kale
+globs: 
+alwaysApply: false
+---
+
+# App Architecture
+
+## App Structure
+
+Kale follows Next.js App Router architecture:
+- Pages are placed in `app/` directories
+- Layouts defined in `layout.tsx` files
+- Server components are used by default
+- Authentication is handled via NextAuth.js
+
+## Core Routes
+
+- `/` - Main landing page in [app/page.tsx](mdc:app/page.tsx)
+- `/login` - Login page in [app/login/page.tsx](mdc:app/login/page.tsx)
+
+## Authentication System
+
+- [app/auth.ts](mdc:app/auth.ts) - NextAuth configuration
+- [app/components/AuthProvider.tsx](mdc:app/components/AuthProvider.tsx) - Auth context provider
+- Sign-in logic in [app/login/page.tsx](mdc:app/login/page.tsx)
+
+## Server Actions
+
+Server actions defined in [app/actions.ts](mdc:app/actions.ts) handle:
+- Data fetching
+- Search functionality
+- Authentication operations
+
+## Data Types
+
+Application data types are defined in [app/types.ts](mdc:app/types.ts)

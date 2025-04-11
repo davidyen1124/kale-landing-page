@@ -1,0 +1,42 @@
+---
+description: Overview of the Kale project structure and key files
+globs: 
+alwaysApply: false
+---
+# 🥬 Kale Project Overview
+
+## Project Structure
+
+Kale is a Next.js application built with React, TypeScript, and Tailwind CSS.
+
+### Key Entry Points
+
+- [app/page.tsx](mdc:app/page.tsx) - Main landing page
+- [app/layout.tsx](mdc:app/layout.tsx) - Root layout component
+- [app/globals.css](mdc:app/globals.css) - Global styles
+- [app/login/page.tsx](mdc:app/login/page.tsx) - Login page
+
+### Component Organization
+
+The components are organized by domain:
+- `app/components/` - Root component directory
+- `app/components/product/` - Product-related components
+- `app/components/home/` - Home page components
+- `app/components/search/` - Search functionality components
+- `app/components/auth/` - Authentication components
+- `app/components/layout/` - Layout components
+- `app/components/ui/` - Reusable UI components
+
+### Related Rules
+
+For more details on specific aspects of the project:
+- [component-architecture](mdc:.cursor/rules/component-architecture.mdc) - Component organization and patterns with detailed component descriptions
+- [app-architecture](mdc:.cursor/rules/app-architecture.mdc) - App Router structure
+- [development-workflow](mdc:.cursor/rules/development-workflow.mdc) - Development commands and setup
+
+### Important Files
+
+- [app/actions.ts](mdc:app/actions.ts) - Server actions
+- [app/types.ts](mdc:app/types.ts) - TypeScript type definitions
+- [app/auth.ts](mdc:app/auth.ts) - Authentication configuration
+- [tailwind.config.ts](mdc:tailwind.config.ts) - Tailwind CSS configuration

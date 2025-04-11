@@ -1,0 +1,51 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Guidelines for development processes in the Kale project
+globs: 
+alwaysApply: false
+---
+
+# Development Workflow
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Run development server: `npm run dev`
+
+## Project Commands
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run linting
+
+## Key Configuration Files
+
+- [next.config.mjs](mdc:next.config.mjs) - Next.js configuration
+- [tailwind.config.ts](mdc:tailwind.config.ts) - Tailwind CSS configuration
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration
+- [postcss.config.mjs](mdc:postcss.config.mjs) - PostCSS configuration
+- [app/auth.ts](mdc:app/auth.ts) - Authentication configuration
+
+## Authentication Setup
+
+- Authentication is implemented using NextAuth.js
+- Login page is defined in [app/login/page.tsx](mdc:app/login/page.tsx)
+- Setup auth provider in [app/components/AuthProvider.tsx](mdc:app/components/AuthProvider.tsx)
+
+## Stack Overview
+
+- Next.js 15.2.4
+- React 19
+- TypeScript 5
+- Tailwind CSS 3.4.17
+- NextAuth.js for authentication
+- OpenAI API
+- Lucide React (icons)
+- Next Themes
+- Zod (validation)
