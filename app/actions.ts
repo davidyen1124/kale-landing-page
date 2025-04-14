@@ -68,7 +68,7 @@ export async function searchFoodProducts(
     }
 
     const response = await openai.responses.create({
-      model: "gpt-4o",
+      model: "gpt-4.1",
       input: inputContent as any,
       text: {
         format: {
